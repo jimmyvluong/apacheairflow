@@ -49,3 +49,26 @@ dag = DAG( 'refresh_data', default_args=default_args )
 airflow webserver -h
 # Start an airflow webserver on port 9090  
 airflow webserver -p 9090
+  
+### OPERATORS ###
+## TROUBLESHOOTING ##
+  
+  # The dummy operator is used for troubleshooting or for a task that has NOT yet been implemented
+  DummyOperator(task_id = 'example', dag = dag)
+## BASH OPERATOR ##
+  # Executes a given bash command or script
+  ## EXAMPLE 1 ##
+  # Runs a bash command to echo "Example!" to standard output
+  BashOperator(
+    task_id = 'bash_example',
+    bash_command = 'echo "Example!"',
+    dag = ml_dag)
+  ## Example 2 ##
+  # Runs a predefined bash script for its command, runcleanup
+  BashOperator(
+    task_id = 'bash_script_example',
+    bash_command = 'run_cleanup.sh',
+    dag = ml_dag)
+  
+  
+  
