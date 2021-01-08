@@ -28,3 +28,20 @@ default_args = {
 # Instantiate the DAG object
 etl_dag = DAG('example_etl', default_args=default_args)
   
+### EXAMPLE 2 ###
+from airflow.models import DAG
+default_args = {
+  'owner': 'jdoe',
+  'start_date': '2019-01-01'
+}
+dag = DAG( dag_id="etl_update", default_args=default_args )
+  
+### EXAMPLE 3 ###
+from airflow.models import DAG
+default_args = {
+  'owner': 'jdoe',
+  'email': 'jdoe@datacamp.com'
+}
+dag = DAG( 'refresh_data', default_args=default_args )  
+  
+ 
