@@ -44,4 +44,8 @@ default_args = {
 }
 dag = DAG( 'refresh_data', default_args=default_args )  
   
- 
+### WEB INTERFACE ###
+  
+airflow webserver -h
+# Start an airflow webserver on port 9090  
+airflow webserver -p 9090
