@@ -56,6 +56,8 @@ airflow webserver -p 9090
   # The dummy operator is used for troubleshooting or for a task that has NOT yet been implemented
   DummyOperator(task_id = 'example', dag = dag)
 ## BASH OPERATOR ##
+  # Import the BashOperator
+  from airflow.operators import BashOperator
   # Executes a given bash command or script
   ## EXAMPLE 1 ##
   # Runs a bash command to echo "Example!" to standard output
@@ -69,6 +71,10 @@ airflow webserver -p 9090
     task_id = 'bash_script_example',
     bash_command = 'run_cleanup.sh',
     dag = ml_dag)
+  ## Example 3 ##
+  # Run a task_id, run the bash_command 'echo 1', and assisn the operator to a DAG.
+  # Note that we defined the DAG in line 37.
+  
   
   
   
