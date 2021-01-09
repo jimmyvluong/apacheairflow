@@ -165,6 +165,9 @@ task3 = BashOperator(task_id='third_task',
 task1 >> task2
 task2 >> task3
 task3 >> task1 # THIS LINE NEEDS TO BE DELETED.
-  
+# Using the Airflow UI to determine any issues with your DAGs is a great troubleshooting step. 
+# For this particular issue, a loop, or cycle, is present within the DAG. 
+# Note that technically removing the first dependency would resolve the issue as well, but the comments specifically reference the desired effect. 
+# Commenting the desired effect in this way can often help resolve bugs in Airflow DAG execution.
 
   
