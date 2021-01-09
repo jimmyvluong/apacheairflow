@@ -57,7 +57,7 @@ airflow webserver -p 9090
   DummyOperator(task_id = 'example', dag = dag)
 ## BASH OPERATOR ##
   # Import the BashOperator
-  from airflow.operators import BashOperator
+  from airflow.operators.bash_operator import BashOperator
   # Executes a given bash command or script
   ## EXAMPLE 1 ##
   # Runs a bash command to echo "Example!" to standard output
