@@ -74,7 +74,17 @@ airflow webserver -p 9090
   ## Example 3 ##
   # Run a task_id, run the bash_command 'echo 1', and assisn the operator to a DAG.
   # Note that we defined the DAG in line 37.
+  example_task = BashOperator(
+    task_id = 'bash_ex',
+    bash_command = 'echo 1',
+    dag = dag)
   
+  ## Example 4 ##
+  # Run a quick data cleaning operation using cat and awk.
+  bash_task = BashOperator(
+    task_id = 'clean_addresses',
+    bash_command = 'cat addresses.txt | awk "NF == 10" > cleaned.txt',
+    dag = dag)
   
   
   
