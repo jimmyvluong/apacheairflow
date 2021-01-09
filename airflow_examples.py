@@ -123,5 +123,48 @@ airflow webserver -p 9090
   # Example of chained tasks
   # task_1 >> task_2 >> task_3
   
+  ## CO-DEPENDENCY ERROR ##
+  # List the DAGs.
+  # Decipher the error message.
+  # Use cat workspace/dags/codependent.py to view the Python code.
   
+  ERROR - Failed to bag_dag: /home/repl/workspace/dags/codependent.py
+  
+  cat workspace/dags/codependent.py
+  
+  ----------------------------------
+
+
+repl:~$ cat workspace/dags/codependent.py
+
+from airflow.models import DAG
+from airflow.operators.bash_operator import BashOperator
+from datetime import datetime
+
+default_args = {
+  'owner': 'dsmith',
+  'start_date': datetime(2020, 2, 12),
+  'retries': 1
+}
+
+codependency_dag = DAG('codependency', default_args=default_args)
+
+task1 = BashOperator(task_id='first_task',
+                     bash_command='echo 1',
+                     dag=codependency_dag)
+
+task2 = BashOperator(task_id='second_task',
+                     bash_command='echo 2',
+                     dag=codependency_dag)
+
+task3 = BashOperator(task_id='third_task',
+                     bash_command='echo 3',
+                     dag=codependency_dag)
+
+# task1 must run before task2 which must run before task3
+task1 >> task2
+task2 >> task3
+task3 >> task1 # THIS LINE NEEDS TO BE DELETED.
+  
+
   
