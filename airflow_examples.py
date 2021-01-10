@@ -214,7 +214,9 @@ task3 >> task1 # THIS LINE NEEDS TO BE DELETED.
         f.write(r.content)   
     # Use the print method for logging
     print(f"File pulled from {URL} and saved to {savepath}")
-
+    # Note the use of f-strings above!
+    # https://realpython.com/python-f-strings/
+  
   from airflow.operators.python_operator import PythonOperator
 
   # Create the task
