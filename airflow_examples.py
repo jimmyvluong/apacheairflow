@@ -192,4 +192,65 @@ task3 >> task1 # THIS LINE NEEDS TO BE DELETED.
     python_callable = printme,
     dag = example_dag)
   
+  ## op_kwargs example ##
+  # Define the function
+  def sleep(length_of_time):
+    time.sleep(length_of_time)
+  
+  # Create the PythonOperator
+  sleep_task = PythonOperator(
+    task_id = 'sleep',
+    python_callable = sleep,
+    op_kwargs = {'length_of_time': 5},
+    # Note that the dictionary key must match the name of the function argument
+    dag = example_dag)
+  
+  ## Example 1 ##
+  # Pulls a file from a URL, then saves it to a designated path
+  
+  def pull_file(URL, savepath):
+    r = requests.get(URL)
+    with open(savepath, 'wb') as f:
+        f.write(r.content)   
+    # Use the print method for logging
+    print(f"File pulled from {URL} and saved to {savepath}")
+
+  from airflow.operators.python_operator import PythonOperator
+
+  # Create the task
+  pull_file_task = PythonOperator(
+    task_id='pull_file',
+    # Add the callable
+    python_callable= pull_file,
+    # Define the arguments
+    op_kwargs= {'URL':'http://dataserver/sales.json', 'savepath':'latestsales.json'},
+    dag=process_sales_dag
+)
+  
+### EmailOperator ###
+  
+  ## Email Example ##
+  # Sending a generated sales report upon completion of a workflow
+  
+  # Import the EmailOperator
+  from airflow.operators.email_operator import EmailOperator
+  
+  # Create the operator
+  email_task = EmailOperator(
+    task_id = 'email_sales_report',
+    to = 'sales_manager@example.com',
+    subject = 'Automated Sales Report',
+    html_content = 'Attached is the latest sales report',
+    files = 'latest_sales.xlsx',
+    dag = example_dag
+  )
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
