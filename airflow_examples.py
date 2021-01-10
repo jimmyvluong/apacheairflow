@@ -274,6 +274,15 @@ pull_file_task >> parse_file_task >> email_manager_task
     dag = example_dag
   )
   
+  ### Airflow Scheduling ###
+  # Schedule the task at start_date + schedule_interval
+  
+    # Example 1 #
+    'start_date': datetime(2020, 2, 25),
+    'schedule_interval': @daily
+    # This means the earliest starting time to run the DAG is on February 26th, 2020
+      
+  
   
   
   
