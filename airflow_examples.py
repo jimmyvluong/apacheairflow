@@ -174,4 +174,22 @@ task3 >> task1 # THIS LINE NEEDS TO BE DELETED.
 # Note that technically removing the first dependency would resolve the issue as well, but the comments specifically reference the desired effect. 
 # Commenting the desired effect in this way can often help resolve bugs in Airflow DAG execution.
 
+### PythonOperator ###
+  
+  ## Example 1 ##
+  # A simple printme function that writes a message to the task logs.
+  
+  # Import the PythonOperator
+  from airflow.operators.python_operator import PythonOperator
+  
+  # Create the function printme()
+  def printme():
+    print("This goes in the logs!")
+  
+  # Create the PythonOperator instance called python_task and add the necessary arguments
+  python_task = PythonOperator(
+    task_id = 'simple_print',
+    python_callable = printme,
+    dag = example_dag)
+  
   
