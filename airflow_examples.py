@@ -281,8 +281,27 @@ pull_file_task >> parse_file_task >> email_manager_task
     'start_date': datetime(2020, 2, 25),
     'schedule_interval': @daily
     # This means the earliest starting time to run the DAG is on February 26th, 2020
-      
   
+    # Example 2 #
+    # datetime methods have been imported
+    # The Airflow DAG objects have been imported
+
+    # Update the scheduling arguments as defined
+    default_args = {
+      'owner': 'Engineering',
+      'start_date': datetime(2019, 11, 1), # year, month, day
+      'email': ['airflowresults@datacamp.com'],
+      'email_on_failure': False,
+      'email_on_retry': False,
+      'retries': 3,
+      'retry_delay': timedelta(minutes=20)
+    }
+  
+    # Use the cron syntax to configure a schedule of every Wednesday at 12:30pm.
+    # Sunday is index 0, Wednesday is index 3
+    dag = DAG('update_dataflows', default_args=default_args, schedule_interval='30 12 * * 3')
+
+
   
   
   
